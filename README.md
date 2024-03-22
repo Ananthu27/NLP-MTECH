@@ -7,3 +7,6 @@ PREPROCESSING DONE
 
 CLASSIFICATION TECHINQUES USED
 -> Term Frequency-Inverse Document Frequency (TF-IDF), Support Vector Machine (SVM)
+
+DATA VIZUALIZATION TECHNIQUES USED
+-> Topic Modeling Visualization, Word Cloud, Box Plots.
