@@ -4,3 +4,6 @@ TOPIC : Perform various techniques (Data cleaning, data reduction, pre-processin
 
 PREPROCESSING DONE
 -> lowercasing, Stemming, Removing Stopwords, Lemmatization, Part-of-Speech Tagging, finally tokenization.
+
+CLASSIFICATION TECHINQUES USED
+-> Term Frequency-Inverse Document Frequency (TF-IDF), Support Vector Machine (SVM)
