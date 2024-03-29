@@ -1,8 +1,16 @@
 import pandas as pd
 
-data_path = './data/'
+config = {
+    'filename' : 'df_file.csv',
+    'text_cols' : ['Text']
+}
 
-df = pd.read_csv(data_path+'df_file.csv')
-# df = pd.read_excel(data_path+'SMS_train.xls')
+# READING DATA
+data_path = './data/'
+df = pd.read_csv(data_path+config['filename'])
+
+# 1 LOWERCASE
+for col in config['text_cols'] : 
+    df[col] = df[col].str.lower()
 
 print (df.head())
