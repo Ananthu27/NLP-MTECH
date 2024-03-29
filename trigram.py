@@ -35,4 +35,4 @@ def detect_outliers_with_trigram_model(paragraph, trigram_model, threshold):
             outliers.append(1)
         else : outliers.append(0)
 
-    return outliers
+    return outliers, words

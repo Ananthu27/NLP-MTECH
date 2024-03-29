@@ -13,20 +13,19 @@ def outlier_ngram(text_column,df):
     for paragraph in paragraphs :
         # labeling outliers based on bigram AND trigram
         threshold = 0.0001  # adjust threshold as needed
-        b_outliers = detect_outliers_with_bigram_model(paragraph, bigram_model, threshold)
-        t_outliers = detect_outliers_with_trigram_model(paragraph, trigram_model, threshold)
+        b_outliers, b_words = detect_outliers_with_bigram_model(paragraph, bigram_model, threshold)
+        t_outliers, t_words = detect_outliers_with_trigram_model(paragraph, trigram_model, threshold)
         outliners = [b+t for b,t in zip(b_outliers,t_outliers)]
         outliners = [1 if item==2 else 0 for item in outliners]
         
         # calculating % of outliers
         out = sum(outliners)
-        total += len(paragraph.split(' '))
+        total += len(b_words)
         
         # creating anomaly less data 
-        words = paragraph.split(" ")
         no_anomaly = []
         for i in range(len(outliners)):
-            if not outliners[i] : no_anomaly.append(words[i])
+            if not outliners[i] : no_anomaly.append(b_words[i])
         res.append(' '.join(no_anomaly))
     
     return res

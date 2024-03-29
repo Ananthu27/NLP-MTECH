@@ -36,4 +36,4 @@ def detect_outliers_with_bigram_model(paragraph, bigram_model, threshold):
         else:
             outliers.append(0)
 
-    return outliers
+    return outliers, words
