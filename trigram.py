@@ -7,7 +7,7 @@ def train_trigram_model(paragraphs):
     trigram_model = defaultdict(lambda: defaultdict(lambda: 0))
 
     for paragraph in paragraphs:
-        sentences = nltk.sent_tokenize(paragraph)
+        sentences = nltk.sent_tokenize(str(paragraph))
 
         for sentence in sentences:
             words = re.findall(r'\w+', sentence.lower())            

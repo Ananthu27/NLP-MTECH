@@ -8,7 +8,7 @@ import re
 ##### ngram based outlier
 
 def detect_outliers_with_bigram_model(paragraph, bigram_model):
-    words = re.findall(r'\w+', paragraph.lower())
+    words = re.findall(r'\w+', str(paragraph).lower())
     outliers = []
     probability = []
 
@@ -19,7 +19,7 @@ def detect_outliers_with_bigram_model(paragraph, bigram_model):
     return words, probability
 
 def detect_outliers_with_trigram_model(paragraph, trigram_model):
-    words = re.findall(r'\w+', paragraph.lower())
+    words = re.findall(r'\w+', str(paragraph).lower())
     outliers = []
     probability = []
 
@@ -47,7 +47,7 @@ def outlier_ngram(text_column,df,threshold=0.01):
     out = 0
 
     for paragraph in paragraphs :
-
+        paragraph = str(paragraph)
         words, b_prob = detect_outliers_with_bigram_model(paragraph, bigram_model)
         t_words, t_prob = detect_outliers_with_trigram_model(paragraph, trigram_model)
         
