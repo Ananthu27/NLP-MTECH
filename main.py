@@ -5,7 +5,7 @@ from wordcloud import WordCloud
 import matplotlib.pyplot as plt
 
 config = {
-    'filename' : 'df_file',
+    'filename' : 'SMS_train',
     'text_cols' : ['Text']
 }
 
@@ -58,7 +58,11 @@ if __name__ =='__main__' :
     # removing outliers 
     # removing outliers 
 
-    from outlier import outlier_ngram
+    from outlier import outlier_ngram, outlier_tf_idf
+    
+    outlier_function,sample_size = outlier_ngram,5
+    outlier_function,sample_size = outlier_tf_idf,20
+
     df = pd.read_csv('./data/'+config['filename']+'_preprocessed.csv')
     clean = {
         'Text' : [],
@@ -66,13 +70,13 @@ if __name__ =='__main__' :
     }
 
     for label in df['Label'].unique()[:2]:
-        res = outlier_ngram('Text',df[df['Label']==label])
+        res = outlier_function('Text',df[df['Label']==label])
         clean['Text']+=res['na']
         clean['Label']+=[label]*len(res['na'])
         
         # for wordcloud
 
-        res = outlier_ngram('Text',df[df['Label']==label].sample(5))
+        res = outlier_function('Text',df[df['Label']==label].sample(sample_size))
         
         a = ' '.join(res['a']) 
         n = len(a.split(' '))
