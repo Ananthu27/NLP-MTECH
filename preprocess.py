@@ -42,3 +42,20 @@ def stem(word):
                     return word[:-len(old)] + new
         else:
             return word
+
+# function for 1 LOWERCASING 
+def to_lower(text : str) -> str :
+    return text.lower()
+
+# perform the following two lines only once 
+# import nltk
+# nltk.download('wordnet')
+    
+import spacy
+
+# perform the follwoing line once only
+# spacy.cli.download('en_core_web_sm')
+nlp = spacy.load('en_core_web_sm')
+def lemmatize(string) :
+    string = nlp(string)
+    return ' '.join([word.lemma_ for word in string])
