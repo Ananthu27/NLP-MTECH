@@ -46,16 +46,20 @@ def stem(word):
 # function for 1 LOWERCASING 
 def to_lower(text : str) -> str :
     return text.lower()
-
-# perform the following two lines only once 
-# import nltk
-# nltk.download('wordnet')
     
 import spacy
 
-# perform the follwoing line once only
-# spacy.cli.download('en_core_web_sm')
 nlp = spacy.load('en_core_web_sm')
 def lemmatize(string) :
     string = nlp(string)
     return ' '.join([word.lemma_ for word in string])
+
+from nltk.corpus import stopwords
+from nltk.tokenize import word_tokenize
+from nltk import pos_tag
+
+def remove_stopwords_pos(text):
+    words = word_tokenize(text)
+    pos_tags = pos_tag(words)
+    filtered_words = [word for word, pos in pos_tags if pos != 'DT']  # Remove determiners
+    return ' '.join(filtered_words)
