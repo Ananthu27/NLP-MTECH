@@ -67,36 +67,42 @@ if __name__ =='__main__' :
 
     for label in df['Label'].unique()[:2]:
         res = outlier_ngram('Text',df[df['Label']==label])
-        clean['Text']+=res['non_anomaly']
-        clean['Label']+=[label]*len(res['non_anomaly'])
+        clean['Text']+=res['na']
+        clean['Label']+=[label]*len(res['na'])
         
         # for wordcloud
 
-        res = outlier_ngram('Text',df[df['Label']==label].sample(10))
-        anomaly = ' '.join(res['anomaly']) 
-        n = len(anomaly.split(' '))
-        non_anomaly = ' '.join(res['non_anomaly'])
-        m = len(non_anomaly.split(' '))
-        non_anomaly = non_anomaly.split(' ')[:min(m,n)]
-        non_anomaly = ' '.join(non_anomaly)
+        res = outlier_ngram('Text',df[df['Label']==label].sample(5))
         
-        text = anomaly+non_anomaly
+        a = ' '.join(res['a']) 
+        n = len(a.split(' '))
+
+        na = ' '.join(res['na'])
+        m = len(na.split(' '))
+    
+        na_size = min(m,int(n*1.5))
+        na = na.split(' ')[:na_size]
+        na = ' '.join(na)
+        
+        text = a+na
 
         word_colors = {}
         word_sizes = {}
 
-        for word in anomaly.split(' '):
+        a_probs = []
+        for p in res['a_probs']:
+            a_probs+=p
+
+        for word,prob in zip(a.split(' '),a_probs):
             word_colors[word] = 'red'
-            word_sizes[word] = 50
+            word_sizes[word] = 60
 
-        probs = []
-        for p in res['non_anomaly_probability']:
-            probs+=p
-        probs = probs[:min(m,n)]
+        na_probs = []
+        for p in res['na_probs']:
+            na_probs+=p
+        na_probs = na_probs[:na_size]
 
-        print (len(probs),len(non_anomaly))
-
-        for word,prob in zip(non_anomaly.split(' '),probs):
+        for word,prob in zip(na.split(' '),na_probs):
             word_colors[word] = 'blue'
             word_sizes[word] = prob*100
 
