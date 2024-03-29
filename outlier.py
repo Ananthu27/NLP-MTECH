@@ -91,6 +91,7 @@ import pandas as pd
 
 def get_tf_idf(sentences):
     vectorizer = TfidfVectorizer()
+    sentences = ["" if pd.isnull(sentence) else sentence for sentence in sentences]
     tfidf_matrix = vectorizer.fit_transform(sentences)
     tfidf_df = pd.DataFrame(tfidf_matrix.toarray(), columns=vectorizer.get_feature_names_out())
     return tfidf_df
@@ -115,7 +116,7 @@ def outlier_tf_idf(text_column,df,threshold=0.01):
     for para in paragraphs :
 
         probs = []
-        words = para.split(' ')
+        words = str(para).split(' ')
         for word in words:
             if check.get(word,False): probs.append(tfidf[word].sum())
             else : probs.append(0)
