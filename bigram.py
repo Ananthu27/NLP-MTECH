@@ -24,16 +24,3 @@ def bigram_probability(bigram_model, w1, w2):
     if total_count == 0:
         return 0
     return bigram_model[w1][w2] / total_count
-
-def detect_outliers_with_bigram_model(paragraph, bigram_model, threshold):
-    words = re.findall(r'\w+', paragraph.lower())
-    outliers = []
-
-    for i in range(len(words) - 1):
-        bigram_prob = bigram_probability(bigram_model, words[i], words[i+1])
-        if bigram_prob < threshold:
-            outliers.append(1)
-        else:
-            outliers.append(0)
-
-    return outliers, words

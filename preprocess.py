@@ -74,3 +74,20 @@ def remove_stopwords_pos(text):
     pos_tags = pos_tag(words)
     filtered_words = [word for word, pos in pos_tags if pos != 'DT']  # Remove determiners
     return ' '.join(filtered_words)
+
+import re
+def remove_numbers(paragraph):
+    pattern = r'\b\d+\b'
+    cleaned_paragraph = re.sub(pattern, '', paragraph)
+    return cleaned_paragraph
+
+def remove_punctuations(paragraph):
+    pattern = r'[^\w\s]'
+    cleaned_paragraph = re.sub(pattern, '', paragraph)
+    return cleaned_paragraph
+
+def remove_single_char_words(paragraph):
+    words = paragraph.split()
+    filtered_words = [word for word in words if len(word) > 1]
+    cleaned_paragraph = ' '.join(filtered_words)
+    return cleaned_paragraph
