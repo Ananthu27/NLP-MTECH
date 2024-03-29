@@ -60,8 +60,8 @@ if __name__ =='__main__' :
 
     from outlier import outlier_ngram, outlier_tf_idf
     
-    outlier_function,sample_size = outlier_ngram,5
     outlier_function,sample_size = outlier_tf_idf,20
+    outlier_function,sample_size = outlier_ngram,20
 
     df = pd.read_csv('./data/'+config['filename']+'_preprocessed.csv')
     clean = {
